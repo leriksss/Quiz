@@ -102,3 +102,42 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.question{
+    margin: 0 auto;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    background-color: #266934;
+    height: 276px;
+    width: 1012px;
+    border-radius: 50px;
+    border: 1px solid #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 96px;
+}
+
+
+.answer{
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 54px;
+    width: 424px;
+    height: 128px;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+}
+.answers{
+    display: flex;
+    justify-content: space-evenly;
+}
+h3{
+    
+}
+
+

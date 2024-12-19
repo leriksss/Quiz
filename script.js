@@ -1,3 +1,11 @@
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array
+}
+
 let button = document.querySelector('.button');
 let start = document.querySelector('.start');
 let btn1 = document.querySelector('.btn-1');
@@ -13,6 +21,10 @@ let questionEasy = document.querySelector('.quetion-easy');
 let questionMiddle = document.querySelector('.quetion-middle');
 let questionHard = document.querySelector('.quetion-hard');
 let text = document.querySelector('.text');
+let temp;
+let nicety;
+
+
 
 
 let easy = {
@@ -22,6 +34,10 @@ let easy = {
     3: ["What do you use to write?", "Pen", "A book", "A cup"],
     4: ["What colors are bananas??", "Yellow", "Blue", "Purple"]
 }
+
+
+
+// console.log(temp);
 
 let middle = {
     0: ["What day comes after Monday?", "Tuesday","Wednesday","Saturday"],
@@ -47,9 +63,11 @@ btn1.addEventListener('click', function(){
     second.style.display = 'none';
     third.style.display = 'block';
     question.innerHTML = easy['0'][0];
-    answer[0].innerHTML = easy['0'][1];
-    answer[1].innerHTML = easy['0'][2];
-    answer[2].innerHTML = easy['0'][3];    
+    temp = easy['0'].slice(1, 4);
+    temp = shuffle(temp);
+    answer[0].innerHTML = temp[0];
+    answer[1].innerHTML = temp[1];
+    answer[2].innerHTML = temp[2];   
 })
 
 btn2.addEventListener('click', function(){
@@ -58,7 +76,8 @@ btn2.addEventListener('click', function(){
     question.innerHTML = middle['0'][0];
     answer[0].innerHTML = middle['0'][1];
     answer[1].innerHTML = middle['0'][2];
-    answer[2].innerHTML = middle['0'][3];
+    answer[2].innerHTML = middle['0'][3];   
+
 })
 
 btn3.addEventListener('click', function(){
@@ -71,7 +90,31 @@ btn3.addEventListener('click', function(){
 })
 
 
+for (let i = 0; i < 3; i += 1)  {
+    answer[i].addEventListener('click', function() {
+        if (answer[i].innerHTML == easy['0'][1]) {
+            console.log("Правильно")
+            answer[i].style.background = '#22ff00'
+            anime({
+                targets: answer[i],
+                background: '#FFFFFF',
+                duration: 500,
+                delay: 100,
+                easing: 'linear'
+            })
+        }
+        else {
+            console.log("Неправильно")
+            answer[i].style.background = '#FF0000'
+            anime({
+                targets: answer[i],
+                background: '#FFFFFF',
+                duration: 500,
+                delay: 100,
+                easing: 'linear'
+            })
+        }
+    })
+}
 
 
-    
-    

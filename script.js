@@ -22,9 +22,8 @@ let questionMiddle = document.querySelector('.quetion-middle');
 let questionHard = document.querySelector('.quetion-hard');
 let text = document.querySelector('.text');
 let temp;
-let nicety;
-
-
+let currentArr;
+let total;
 
 
 let easy = {
@@ -34,10 +33,6 @@ let easy = {
     3: ["What do you use to write?", "Pen", "A book", "A cup"],
     4: ["What colors are bananas??", "Yellow", "Blue", "Purple"]
 }
-
-
-
-// console.log(temp);
 
 let middle = {
     0: ["What day comes after Monday?", "Tuesday","Wednesday","Saturday"],
@@ -54,66 +49,91 @@ let hard = {
     4: ["What does 'piece of cake' mean?", "Something very easy","Something delicious","A part of dessert"]
 }
 
+
 button.addEventListener('click', function(){
     start.style.display = 'none';
     second.style.display = 'block';
 })
 
+
+
 btn1.addEventListener('click', function(){
+    currentArr = easy;
     second.style.display = 'none';
     third.style.display = 'block';
-    question.innerHTML = easy['0'][0];
-    temp = easy['0'].slice(1, 4);
+    question.innerHTML = currentArr['0'][0];
+    temp = currentArr ['0'].slice(1, 4);
     temp = shuffle(temp);
     answer[0].innerHTML = temp[0];
     answer[1].innerHTML = temp[1];
     answer[2].innerHTML = temp[2];   
+    let total = 0
+
 })
 
 btn2.addEventListener('click', function(){
+    currentArr = middle;
     second.style.display = 'none';
     third.style.display = 'block';
-    question.innerHTML = middle['0'][0];
-    answer[0].innerHTML = middle['0'][1];
-    answer[1].innerHTML = middle['0'][2];
-    answer[2].innerHTML = middle['0'][3];   
+    question.innerHTML = currentArr['0'][0];
+    temp = currentArr ['0'].slice(1, 4);
+    temp = shuffle(temp);
+    answer[0].innerHTML = temp[0];
+    answer[1].innerHTML = temp[1];
+    answer[2].innerHTML = temp[2];   
+    let total = 0
 
 })
 
 btn3.addEventListener('click', function(){
+    currentArr = hard;
     second.style.display = 'none';
     third.style.display = 'block';
-    question.innerHTML = hard['0'][0];
-    answer[0].innerHTML = hard['0'][1];
-    answer[1].innerHTML = hard['0'][2];
-    answer[2].innerHTML = hard['0'][3];
-})
+    question.innerHTML = currentArr['0'][0];
+    temp = currentArr ['0'].slice(1, 4);
+    temp = shuffle(temp);
+    answer[0].innerHTML = temp[0];
+    answer[1].innerHTML = temp[1];
+    answer[2].innerHTML = temp[2]; 
+    let total = 0  
 
+})
 
 for (let i = 0; i < 3; i += 1)  {
     answer[i].addEventListener('click', function() {
-        if (answer[i].innerHTML == easy['0'][1]) {
-            console.log("Правильно")
-            answer[i].style.background = '#22ff00'
-            anime({
-                targets: answer[i],
-                background: '#FFFFFF',
-                duration: 500,
-                delay: 100,
-                easing: 'linear'
-            })
-        }
-        else {
-            console.log("Неправильно")
-            answer[i].style.background = '#FF0000'
-            anime({
-                targets: answer[i],
-                background: '#FFFFFF',
-                duration: 500,
-                delay: 100,
-                easing: 'linear'
-            })
-        }
+            if (answer[i].innerHTML == currentArr['0'][1]) {
+                total += 1
+                console.log("Правильно");
+                answer[i].style.background = '#22ff00';
+                anime({
+                    targets: answer[i],
+                    background: '#FFFFFF',
+                    duration: 500,
+                    delay: 100,
+                    easing: 'linear'
+                })
+            }
+            else {
+                console.log("Неправильно");
+                answer[i].style.background = '#FF0000';
+                anime({
+                    targets: answer[i],
+                    background: '#FFFFFF',
+                    duration: 500,
+                    delay: 100,
+                    easing: 'linear'
+                })
+            }
+            
+
+            question.innerHTML = currentArr['1'][0];
+            temp = currentArr['1'].slice(1, 4);
+            console.log(temp)
+            temp = shuffle(temp);
+            answer[0].innerHTML = temp[0];
+            answer[1].innerHTML = temp[1];
+            answer[2].innerHTML = temp[2];             
+    
     })
 }
 

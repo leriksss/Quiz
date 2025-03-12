@@ -15,6 +15,7 @@ let second = document.querySelector('.second');
 let buttons = document.querySelector('.buttons');
 let level = document.querySelector('.level');
 let third = document.querySelector('.third');
+let end = document.querySelector('.end');
 let answer = document.querySelectorAll('.answer');
 let question = document.querySelector('.question');
 let questionEasy = document.querySelector('.quetion-easy');
@@ -23,7 +24,7 @@ let questionHard = document.querySelector('.quetion-hard');
 let text = document.querySelector('.text');
 let temp;
 let currentArr;
-let total;
+let total = 0;
 
 
 let easy = {
@@ -31,7 +32,8 @@ let easy = {
     1: ["Where do you sleep at night?", "Bed", "Table", "Chair"],
     2: ["How many legs does a cat have?", "Four","Three","Five"],
     3: ["What do you use to write?", "Pen", "A book", "A cup"],
-    4: ["What colors are bananas??", "Yellow", "Blue", "Purple"]
+    4: ["What colors are bananas??", "Yellow", "Blue", "Purple"],
+    5: ["", "", "", ""]
 }
 
 let middle = {
@@ -39,14 +41,16 @@ let middle = {
     1: ["Which country is famous for pizza?", "Italy","Japan","Ukraine"],
     2: ["What is the synonym of HAPPY?", "Glad","Angry","Sad"],
     3: ["What is the capital Of France?", "Paris","Tokyo","Rome"],
-    4: ["What do you need to open the door?", "Key","Pen","Phone"]
+    4: ["What do you need to open the door?", "Key","Pen","Phone"],
+    5: ["", "", "", ""]
 }
 let hard = {
     0: ["What does 'How are you?' mean?", "How do you feel?","What is your name?","Where are you from?"],
     1: ["Which sentence is correct?", "She goes to school","She going to school","She go to school"],
     2: ["What does 'break the ice' mean?", "To start a conversation","To destroy something frozen","To make someone angry"],
     3: ["What is a capital of Australia?", "Canberra","Sydney","Melbourne"],
-    4: ["What does 'piece of cake' mean?", "Something very easy","Something delicious","A part of dessert"]
+    4: ["What does 'piece of cake' mean?", "Something very easy","Something delicious","A part of dessert"],
+    5: ["", "", "", ""]
 }
 
 
@@ -66,9 +70,9 @@ btn1.addEventListener('click', function(){
     temp = shuffle(temp);
     answer[0].innerHTML = temp[0];
     answer[1].innerHTML = temp[1];
-    answer[2].innerHTML = temp[2];   
-    let total = 0
-
+    answer[2].innerHTML = temp[2];
+    rightAnswer = currentArr['0'][1]  
+    total = 0
 })
 
 btn2.addEventListener('click', function(){
@@ -80,9 +84,9 @@ btn2.addEventListener('click', function(){
     temp = shuffle(temp);
     answer[0].innerHTML = temp[0];
     answer[1].innerHTML = temp[1];
-    answer[2].innerHTML = temp[2];   
-    let total = 0
-
+    answer[2].innerHTML = temp[2];  
+    rightAnswer = currentArr['0'][1]  
+    total = 0
 })
 
 btn3.addEventListener('click', function(){
@@ -95,46 +99,63 @@ btn3.addEventListener('click', function(){
     answer[0].innerHTML = temp[0];
     answer[1].innerHTML = temp[1];
     answer[2].innerHTML = temp[2]; 
-    let total = 0  
-
+    rightAnswer = currentArr['0'][1] 
+    total = 0
 })
 
+let j = 1
 for (let i = 0; i < 3; i += 1)  {
     answer[i].addEventListener('click', function() {
-            if (answer[i].innerHTML == currentArr['0'][1]) {
-                total += 1
-                console.log("Правильно");
-                answer[i].style.background = '#22ff00';
-                anime({
-                    targets: answer[i],
-                    background: '#FFFFFF',
-                    duration: 500,
-                    delay: 100,
-                    easing: 'linear'
-                })
-            }
-            else {
-                console.log("Неправильно");
-                answer[i].style.background = '#FF0000';
-                anime({
-                    targets: answer[i],
-                    background: '#FFFFFF',
-                    duration: 500,
-                    delay: 100,
-                    easing: 'linear'
-                })
-            }
-            
+        if (answer[i].innerHTML == rightAnswer) {
+            total += 1
+            console.log("Правильно");
+            answer[i].style.background = '#22ff00';
+            anime({
+                targets: answer[i],
+                background: '#FFFFFF',
+                duration: 500,
+                delay: 100,
+                easing: 'linear'
+            })
+        }
+        else {
+            console.log("Неправильно");
+            answer[i].style.background = '#FF0000';
+            anime({
+                targets: answer[i],
+                background: '#FFFFFF',
+                duration: 500,
+                delay: 100,
+                easing: 'linear'
+            })
+        }
+        
 
-            question.innerHTML = currentArr['1'][0];
-            temp = currentArr['1'].slice(1, 4);
-            console.log(temp)
-            temp = shuffle(temp);
-            answer[0].innerHTML = temp[0];
-            answer[1].innerHTML = temp[1];
-            answer[2].innerHTML = temp[2];             
+        question.innerHTML = currentArr[j][0];
+
+        temp = currentArr[j].slice(1, 4);
+        rightAnswer = currentArr[j][1] 
+        console.log(temp)
+        temp = shuffle(temp);
+        answer[0].innerHTML = temp[0];
+        answer[1].innerHTML = temp[1];
+        answer[2].innerHTML = temp[2];   
+        j += 1         
+        
+        if (j == 6) {
+            second.style.display = 'none';
+            start.style.display = 'none';
+            third.style.display = 'none';
+            start.style.display = 'block';         
+            text.innerHTML = `Ви відповіли правильно на ${total} запитання з 5!`;
+        }
+       
     
     })
 }
+
+   
+
+
 
 
